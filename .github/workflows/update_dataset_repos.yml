@@ -13,13 +13,6 @@ jobs:
           - neurodatascience/mini_proc-qpn
     steps:
       - uses: actions/checkout@v3
-#       - name: Create Pull Request
-#         uses: peter-evans/create-pull-request@v4
-#         with:
-#           push-to-fork: ${{ matrix.fork }}
-#           title: Update to match `neurodatascience/mr_proc:main`
-#           token: ${{ secrets.PAT }}
-#           branch: upstream-changes
         with:
           repository: ${{ matrix.fork }}
       - name: Get upstream changes
@@ -27,10 +20,6 @@ jobs:
           git remote add upstream https://github.com/neurodatascience/mini_proc.git
           git fetch upstream main:upstream-main
           git reset --hard upstream-main
-#         run: |
-#           git pull --rebase --set-upstream https://github.com/neurodatascience/mini_proc.git
-#           git remote add upstream https://github.com/neurodatascience/mini_proc.git
-#           git pull upstream main
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v4
         with:
