@@ -26,7 +26,7 @@ jobs:
         run: |
           git remote add upstream https://github.com/neurodatascience/mini_proc.git
           git fetch upstream main:upstream-main
-#           git reset --hard upstream-main
+          git reset --hard upstream-main
 #         run: |
 #           git pull --rebase --set-upstream https://github.com/neurodatascience/mini_proc.git
 #           git remote add upstream https://github.com/neurodatascience/mini_proc.git
