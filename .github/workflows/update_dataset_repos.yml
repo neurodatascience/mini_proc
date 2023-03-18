@@ -20,6 +20,7 @@ jobs:
           title: Update to match `neurodatascience/mr_proc:main`
           token: ${{ secrets.PAT }}
           branch: upstream-changes
+          delete-branch: true
 #         with:
 #           repository: ${{ matrix.fork }}
 #       - name: Get upstream changes
