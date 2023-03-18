@@ -19,6 +19,7 @@ jobs:
           push-to-fork: ${{ matrix.fork }}
           title: Update to match `neurodatascience/mr_proc:main`
           token: ${{ secrets.PAT }}
+          branch: upstream-changes
 #         with:
 #           repository: ${{ matrix.fork }}
 #       - name: Get upstream changes
