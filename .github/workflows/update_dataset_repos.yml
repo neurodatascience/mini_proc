@@ -18,7 +18,7 @@ jobs:
       - name: Get upstream changes
         run: |
           git remote add upstream https://github.com/neurodatascience/mini_proc.git
-          git config pull.ff only
+          git config pull.rebase true
           git pull upstream main
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v4
