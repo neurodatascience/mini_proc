@@ -24,7 +24,6 @@ jobs:
           repository: ${{ matrix.fork }}
       - name: Get upstream changes
         run: |
-          git checkout -b upstream-changes
           git pull --rebase --set-upstream https://github.com/neurodatascience/mini_proc.git
 #           git remote add upstream https://github.com/neurodatascience/mini_proc.git
 #           git pull upstream main
