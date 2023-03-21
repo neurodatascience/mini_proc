@@ -36,7 +36,6 @@ jobs:
         uses: michellewang/auto-approve-action@v3
         with:
           pull-request-number: ${{ steps.create-pr.outputs.pull-request-number }}
-          review-message: Auto-approve
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-#           github-token: ${{ secrets.PAT }}
+          review-message: Auto-approved by GitHub action.
+          github-token: ${{ secrets.PAT }}
         
