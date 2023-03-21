@@ -28,7 +28,7 @@ jobs:
         with:
           title: Update to match `neurodatascience/mr_proc:main`
           body: PR created by [create-pull-request](https://github.com/peter-evans/create-pull-request) GitHub action.
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.PAT }}
           branch: upstream-changes
 #       - name: Approve Pull Request
 #         if: ${{ steps.create-pr.outputs.pull-request-number }}
