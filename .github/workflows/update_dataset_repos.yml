@@ -37,5 +37,6 @@ jobs:
         with:
           pull-request-number: ${{ steps.create-pr.outputs.pull-request-number }}
           review-message: Auto-approve
-          github-token: ${{ secrets.PAT }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+#           github-token: ${{ secrets.PAT }}
         
