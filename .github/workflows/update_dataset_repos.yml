@@ -11,8 +11,6 @@ jobs:
         fork:
           - neurodatascience/mini_proc-ppmi
           - neurodatascience/mini_proc-qpn
-    permissions:
-      pull-requests: write
     steps:
       - uses: actions/checkout@v3
         with:
@@ -23,16 +21,15 @@ jobs:
           git fetch upstream main:upstream-main
           git reset --hard upstream-main
       - name: Create Pull Request
-        id: create-pr
+        id: step-create
         uses: peter-evans/create-pull-request@v4
         with:
           title: Update to match `neurodatascience/mr_proc:main`
-          body: PR created by [create-pull-request](https://github.com/peter-evans/create-pull-request) GitHub action.
-          labels: auto-pr
+          body: PR created/updated automatically by [create-pull-request](https://github.com/peter-evans/create-pull-request) GitHub action.
           token: ${{ secrets.PAT }}
-          branch: upstream-changes
+          branch: main-upstream
       - name: Approve Pull Request
-        if: ${{ steps.create-pr.outputs.pull-request-number }}
+        if: ${{ steps.step-create.outputs.pull-request-number }}
         uses: michellewang/auto-approve-action@v3
         with:
           repository: ${{ matrix.fork }}
