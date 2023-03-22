@@ -21,7 +21,7 @@ jobs:
           git fetch upstream main:upstream-main
           git reset --hard upstream-main
       - name: Create Pull Request
-        id: step-create
+        id: create-pull-request
         uses: peter-evans/create-pull-request@v4
         with:
           title: Update to match neurodatascience/mr_proc:main
@@ -30,7 +30,7 @@ jobs:
           branch: main-upstream
           labels: automerge
       - name: Automerge Pull Request
-        if: ${{ steps.step-create.outputs.pull-request-number }}
+        if: ${{ steps.create-pull-request.outputs.pull-request-number }}
         uses: pascalgn/automerge-action@v0.15.6
         env:
           GITHUB_TOKEN: ${{ secrets.PAT }}
@@ -40,5 +40,5 @@ jobs:
           MERGE_REQUIRED_APPROVALS: 0
           MERGE_DELETE_BRANCH: false
           MERGE_ERROR_FAIL: true
-          PULL_REQUEST: ${{ matrix.fork }}/${{ steps.step-create.outputs.pull-request-number }}
+          PULL_REQUEST: ${{ matrix.fork }}/${{ steps.create-pull-request.outputs.pull-request-number }}
         
