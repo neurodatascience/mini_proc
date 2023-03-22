@@ -24,19 +24,11 @@ jobs:
         id: step-create
         uses: peter-evans/create-pull-request@v4
         with:
-          title: Update to match `neurodatascience/mr_proc:main`
+          title: Update to match neurodatascience/mr_proc:main
           body: PR created/updated automatically by [create-pull-request](https://github.com/peter-evans/create-pull-request) GitHub action.
           token: ${{ secrets.PAT }}
           branch: main-upstream
           labels: automerge
-#       - name: Approve Pull Request
-#         if: ${{ steps.step-create.outputs.pull-request-number }}
-#         uses: michellewang/auto-approve-action@v3
-#         with:
-#           repository: ${{ matrix.fork }}
-#           pull-request-number: ${{ steps.step-create.outputs.pull-request-number }}
-#           review-message: PR approved by [auto-approve-action](https://github.com/michellewang/auto-approve-action) GitHub action.
-#           github-token: ${{ secrets.PAT }}
       - name: Automerge Pull Request
         if: ${{ steps.step-create.outputs.pull-request-number }}
         uses: pascalgn/automerge-action@v0.15.6
