@@ -33,15 +33,10 @@ jobs:
           branch: upstream-changes
       - name: Approve Pull Request
         if: ${{ steps.create-pr.outputs.pull-request-number }}
-#         uses: juliangruber/approve-pull-request-action@v2.0.0
-#         with:
-#           github-token: ${{ secrets.PAT }}
-#           number: ${{ steps.create-pr.outputs.pull-request-number }}
-#           repo: ${{ matrix.fork }}
         uses: michellewang/auto-approve-action@v3
         with:
           repository: ${{ matrix.fork }}
           pull-request-number: ${{ steps.create-pr.outputs.pull-request-number }}
-          review-message: Auto-approved by GitHub action.
+          review-message: PR approved by [auto-approve-action](https://github.com/michellewang/auto-approve-action) GitHub action.
           github-token: ${{ secrets.PAT }}
         
