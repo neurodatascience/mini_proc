@@ -30,6 +30,7 @@ jobs:
           branch: main-upstream
           labels: automerge
       - name: Automerge Pull Request
+        id: automerge-pull-request
         if: ${{ steps.create-pull-request.outputs.pull-request-number }}
         uses: pascalgn/automerge-action@v0.15.6
         env:
@@ -41,4 +42,9 @@ jobs:
           MERGE_DELETE_BRANCH: false
           MERGE_ERROR_FAIL: true
           PULL_REQUEST: ${{ matrix.fork }}/${{ steps.create-pull-request.outputs.pull-request-number }}
+      - name: Check if success
+        if: steps.automerge-pull-request.outputs.mergeResult != "merged"
+        run: |
+          echo "Unable to merge pull request #${{ steps.automerge-pull-request.outputs.pullRequestNumber }}"
+          exit 1
         
