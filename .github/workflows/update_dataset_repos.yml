@@ -43,7 +43,7 @@ jobs:
           MERGE_ERROR_FAIL: true
           PULL_REQUEST: ${{ matrix.fork }}/${{ steps.create-pull-request.outputs.pull-request-number }}
       - name: Check if success
-        if: ${{ steps.automerge-pull-request.outputs.mergeResult }} != "merged"
+        if: ${{ steps.automerge-pull-request.outputs.mergeResult != "merged" }}
         run: |
           echo "Unable to merge pull request #${{ steps.automerge-pull-request.outputs.pullRequestNumber }}"
           exit 1
