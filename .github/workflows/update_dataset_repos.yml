@@ -33,7 +33,7 @@ jobs:
         uses: michellewang/auto-approve-action@v3
         with:
           repository: ${{ matrix.fork }}
-          pull-request-number: ${{ steps.create-pr.outputs.pull-request-number }}
+          pull-request-number: ${{ steps.step-create.outputs.pull-request-number }}
           review-message: PR approved by [auto-approve-action](https://github.com/michellewang/auto-approve-action) GitHub action.
           github-token: ${{ secrets.PAT }}
         
