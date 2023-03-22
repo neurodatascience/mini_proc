@@ -28,12 +28,25 @@ jobs:
           body: PR created/updated automatically by [create-pull-request](https://github.com/peter-evans/create-pull-request) GitHub action.
           token: ${{ secrets.PAT }}
           branch: main-upstream
-      - name: Approve Pull Request
+          labels: automerge
+#       - name: Approve Pull Request
+#         if: ${{ steps.step-create.outputs.pull-request-number }}
+#         uses: michellewang/auto-approve-action@v3
+#         with:
+#           repository: ${{ matrix.fork }}
+#           pull-request-number: ${{ steps.step-create.outputs.pull-request-number }}
+#           review-message: PR approved by [auto-approve-action](https://github.com/michellewang/auto-approve-action) GitHub action.
+#           github-token: ${{ secrets.PAT }}
+      - name: Automerge Pull Request
         if: ${{ steps.step-create.outputs.pull-request-number }}
-        uses: michellewang/auto-approve-action@v3
-        with:
-          repository: ${{ matrix.fork }}
-          pull-request-number: ${{ steps.step-create.outputs.pull-request-number }}
-          review-message: PR approved by [auto-approve-action](https://github.com/michellewang/auto-approve-action) GitHub action.
-          github-token: ${{ secrets.PAT }}
+        uses: pascalgn/automerge-action@v0.15.6
+        env:
+          GITHUB_TOKEN: ${{ secrets.PAT }}
+          MERGE_LABELS: automerge
+          MERGE_METHOD: merge
+          MERGE_COMMIT_MESSAGE: pull-request-title
+          MERGE_REQUIRED_APPROVALS: 0
+          MERGE_DELETE_BRANCH: false
+          MERGE_ERROR_FAIL: true
+          PULL_REQUEST: ${{ matrix.fork }}/${{ steps.step-create.outputs.pull-request-number }}
         
