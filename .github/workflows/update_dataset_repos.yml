@@ -14,7 +14,7 @@ jobs:
           - neurodatascience/mini_proc-ppmi
           - neurodatascience/mini_proc-qpn
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@8f4b7f84864484a7bf31766abe9204da3cbe65b3
         with:
           repository: ${{ matrix.fork }}
       - name: Get upstream changes
@@ -24,7 +24,7 @@ jobs:
           git reset --hard upstream-main
       - name: Create Pull Request
         id: create-pull-request
-        uses: peter-evans/create-pull-request@v4
+        uses: peter-evans/create-pull-request@495ffbb489edc95cad062fefe82c9e05ff9bd91d
         with:
           title: Update to match neurodatascience/mr_proc:main
           body: PR created/updated automatically by [create-pull-request](https://github.com/peter-evans/create-pull-request) GitHub action. Will be merged automatically by [automerge-action](https://github.com/pascalgn/automerge-action) if there are no merge conflicts.
@@ -33,7 +33,7 @@ jobs:
           labels: automerge
       - name: Approve Pull Request
         if: ${{ steps.create-pull-request.outputs.pull-request-number }}
-        uses: michellewang/auto-approve-action@v3
+        uses: michellewang/auto-approve-action@2b3352cc25a7d488e06372ddd52b5d6702276b10
         with:
           repository: ${{ matrix.fork }}
           pull-request-number: ${{ steps.create-pull-request.outputs.pull-request-number }}
@@ -42,7 +42,7 @@ jobs:
       - name: Automerge Pull Request
         id: automerge-pull-request
         if: ${{ steps.create-pull-request.outputs.pull-request-number }}
-        uses: pascalgn/automerge-action@v0.15.6
+        uses: pascalgn/automerge-action@a58470325a3437bd872dace642422916828208e0
         env:
           GITHUB_TOKEN: ${{ secrets.PAT }}
           MERGE_LABELS: automerge
@@ -54,7 +54,7 @@ jobs:
           PULL_REQUEST: ${{ matrix.fork }}/${{ steps.create-pull-request.outputs.pull-request-number }}
       - name: Fail job if Pull Request wasn't ready to be merged
         if: steps.automerge-pull-request.outputs.mergeResult == 'not_ready'
-        uses: actions/github-script@v6
+        uses: actions/github-script@98814c53be79b1d30f795b907e553d8679345975
         with:
           script: |
             core.setFailed("Pull request #${{ steps.automerge-pull-request.outputs.pullRequestNumber }} is not ready to be merged. This is probably due to merge conflicts: fix them in neurodatascience/mr_proc or in each of neurodatascience/mr_proc-[dataset] before trying again.")
