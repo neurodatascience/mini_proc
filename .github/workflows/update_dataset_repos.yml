@@ -38,6 +38,7 @@ jobs:
           review-message: PR approved by [auto-approve-action](https://github.com/michellewang/auto-approve-action) GitHub action.
           github-token: ${{ secrets.GH_ACTION_PAT }}
       - name: Automerge Pull Request
+        id: automerge-pull-request
         if: ${{ steps.create-pull-request.outputs.pull-request-number }}
         uses: pascalgn/automerge-action@v0.15.6
         env:
@@ -50,7 +51,7 @@ jobs:
           MERGE_ERROR_FAIL: "true"
           PULL_REQUEST: ${{ matrix.fork }}/${{ steps.create-pull-request.outputs.pull-request-number }}
       - name: Fail job if PR wasn't ready
-        if: ${{ steps.automerge-pull-request.outputs.mergeResult }} == 'not_ready'
+        if: steps.automerge-pull-request.outputs.mergeResult == 'not_ready'
         run: |
           echo "${{ steps.automerge-pull-request.outputs.mergeResult }}"
           echo "Pull request #${{ steps.automerge-pull-request.outputs.pullRequestNumber }} is not ready to be merged."
