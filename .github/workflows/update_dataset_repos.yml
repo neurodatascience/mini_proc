@@ -53,5 +53,6 @@ jobs:
           PULL_REQUEST: ${{ matrix.fork }}/${{ steps.create-pull-request.outputs.pull-request-number }}
       - name: Fail job if PR wasn't ready
         if: steps.automerge-pull-request.outputs.mergeResult == 'not_ready'
-        run: |
-          core.setFailed('Pull request is not ready to be merged. If this is due to a merge conflict, fix them in neurodatascience/mr_proc or in each of neurodatascience/mr_proc-[dataset] before trying again.')
+        with:
+          script: |
+            core.setFailed("Pull request #${{ steps.automerge-pull-request.outputs.pullRequestNumber }} is not ready to be merged. This is probably due to merge conflicts: fix them in neurodatascience/mr_proc or in each of neurodatascience/mr_proc-[dataset] before trying again.")
