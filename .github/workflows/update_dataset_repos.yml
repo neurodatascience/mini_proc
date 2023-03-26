@@ -53,6 +53,5 @@ jobs:
       - name: Fail job if PR wasn't ready
         if: steps.automerge-pull-request.outputs.mergeResult == 'not_ready'
         run: |
-          echo "Pull request #${{ steps.automerge-pull-request.outputs.pullRequestNumber }} is not ready to be merged."
-          echo "If this is due to a merge conflict, fix them in neurodatascience/mr_proc or in each of neurodatascience/mr_proc-[dataset] before trying again."
+          core.setFailed("Pull request #${{ steps.automerge-pull-request.outputs.pullRequestNumber }} is not ready to be merged. If this is due to a merge conflict, fix them in neurodatascience/mr_proc or in each of neurodatascience/mr_proc-[dataset] before trying again.")
           exit 1
