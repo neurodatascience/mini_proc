@@ -5,7 +5,7 @@ on:
       - 'main'
 jobs:
   update-dataset-repo:
-    if: ${{ github.repository }} == neurodatascience/mr_proc
+    if: github.repository == 'neurodatascience/mini_proc'
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -52,7 +52,7 @@ jobs:
           MERGE_DELETE_BRANCH: "false"
           MERGE_ERROR_FAIL: "true"
           PULL_REQUEST: ${{ matrix.fork }}/${{ steps.create-pull-request.outputs.pull-request-number }}
-      - name: Fail job if PR wasn't ready
+      - name: Fail job if Pull Request wasn't ready to be merged
         if: steps.automerge-pull-request.outputs.mergeResult == 'not_ready'
         uses: actions/github-script@v6
         with:
