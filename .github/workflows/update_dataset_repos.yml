@@ -44,7 +44,7 @@ jobs:
         if: ${{ steps.create-pull-request.outputs.pull-request-number }}
         uses: pascalgn/automerge-action@v0.15.6
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_ACTION_PAT }}
+          GITHUB_TOKEN: ${{ secrets.PAT }}
           MERGE_LABELS: automerge
           MERGE_METHOD: merge
           MERGE_COMMIT_MESSAGE: "{pullRequest.title} (#{pullRequest.number})"
